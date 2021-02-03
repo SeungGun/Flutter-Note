@@ -114,7 +114,7 @@
 
 <blockquote>산술 연산자</blockquote>
 
-1. +
+1. <pre>+</pre>
 
    덧셈 - 숫자 덧셈 & 문자열 concat 
 
