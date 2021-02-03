@@ -701,3 +701,15 @@ Future networkRequest() async{ //나중에 비동기로 끝나는
 
 - 범위 주석 /**  **/ 
 
+
+
+<hr>
+
+<h2>Reference</h2>
+
+<a>https://www.youtube.com/watch?v=J_cQyPGyHRI</a>
+
+<a>https://blockdmask.tistory.com/394?category=415337</a>
+
+
+
