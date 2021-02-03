@@ -56,8 +56,10 @@
 
   그러나 일반적으로 기본으로 사용할 때는 var를 사용하고, dynamic은 함수와 같이 사용한다.
 
-  (dynamic은 Java에서 Object 와 유사한 느낌)
+  (dynamic은 Java에서 Object 와 유사한 느낌
 
+  => 모든 클래스는 Object 클래스를 extends하므로 캐스팅이 가능함 DownCasting)
+  
   ```dart
   void main(){
       dynamic c = 10;
@@ -66,9 +68,9 @@
   }
   myPrint(dynamic v){
       //TODO
-  }
+}
   ```
-
+  
   
 
 <hr>
