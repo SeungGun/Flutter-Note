@@ -45,12 +45,11 @@
       var a = 6;  // int
       var b = 8.22; // double
       var c = 'String1'; // String
-      var d = 'String2'; // String
+      var d = "String2"; // String
       var e = true; // bool
   }
   ```
   
-
 - **dynamic** 키워드
 
   dynamic도 var와 마찬가지로 타입을 추론을 하는 방식이다. 
@@ -337,7 +336,7 @@ void main(){
 
   }
 
-> Parameter - Option, Required
+> - Named Argument - Option, Required 
 
 - 우선 기본 예시를 하나 만들어 본다.
 
