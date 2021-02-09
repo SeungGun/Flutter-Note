@@ -161,7 +161,7 @@
 
      - Stateless와의 결정적인 차이점은 내부에 State라는 또 다른 클래스가 있다. 
 
-       build 메소드는 State 클래스가 가지고 있다. 두 클래스의 결합
+       => build 메소드는 State 클래스가 가지고 있다. 
 
        그래서 엄밀히 말하면 Stateful 위젯에서 rebuild를 초래하는 것은 결과적으로 State 클래스이며, 이를 통해서 화면을 다시 Rendering해준다. 
 
@@ -181,6 +181,8 @@
 
        그 아래에  State클래스를 상속받은 클래스는 **mutable**한 특징을 대신하게 한 것이다. 
 
+       그렇기에 StatefulWidget과 StatelessWidget에서는 모든 변수들은 immutable하게 선언해줘야한다. - final or const 
+
      - data에 변경사항이 생겨서 다시 위젯을 그리게 되면 우리에게 보여진 Test클래스의 객체는 사라지고 다시 _TestState클래스에서 변화가 반영된 data를 기반으로 위젯을 만들어서 Test에게 올려보내고 Test객체는 새로 받은 위젯을 우리에게 보여준다.
 
      - Test클래스와 _TestState클래스는 연결되어 있어야한다.
@@ -194,12 +196,12 @@
        
 
      - createState() 
-
+     
        ```dart
        @override
        State<StatefulWidget> createState(){
            return null;
-       }
+  }
        ```
 
        State 타입으로 지정되어 있고 제네릭타입으로 StatefulWidget이 지정되어있다.
@@ -221,8 +223,8 @@
        - setState()
 
          - 역할
-
-           1. 매개변수로 전달된 함수를 호출하는 것
+     
+      1. 매개변수로 전달된 함수를 호출하는 것
            2. build 메소드를 호출하는 것
 
          - state가 변했고 이 변화를 반영해서 다시 rebuild를 해야하기 때문 
@@ -230,7 +232,7 @@
          - setState가 표시해준 위젯들을 "dirty"라고 표현함
 
            
-
+     
          - 두개의 로봇이 있는데, 변신 로봇이 있는데 변신 과정에서 계속 state가 바뀌어야 하고 이를 반영하려면 보다 많은 부품과 비용이 들어간다.
          - 플러터 입장에서 state 객체는 변신로봇에 해당된다.
          - 그래서 state가 변한 state 객체를 비용이 싼 stateful 위젯으로 만들어서 계속 rebuild함 
