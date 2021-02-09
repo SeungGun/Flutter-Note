@@ -82,6 +82,27 @@
   2. 데이터를 받게 되었을 때 모양이 바뀜
 
      => 사용자가 TextField(사용자가 입력하는 곳)에서 무언가를 입력할 때마다 문자 정보를 표시하는 과정에서 지속적으로 필드의 내용이 바뀌게 됨
+  
+- build() 메소드
+
+   - build 메소드는 StatelessWidget과 StatefulWidget(정확히는 연결된 State 클래스)에서 구현이 되며 화면을 구성할 UI들을 구현하는 메소드이다. 
+
+   - 화면이 출력될 때 build 메소드가 호출되면서 build 메소드 내부에 구현한 UI 위젯들이 화면에 출력된다. 
+
+     1. StatelessWidget은 변화가 필요없는 화면을 구성할 때 사용하는 위젯 클래스이며
+
+        그렇기 때문에 build 메소드는 딱 한번만 호출된다. 
+
+     2. StatefulWidget은 화면의 구성이 상태 변화에 따라 재구성되어야 할 때 사용함
+
+        - 상태 변경은 setState() 메소드를 이용해서 변경해야한다.
+        - setState() 메소드가 호출될 때마다 build 메소드를 재호출하여 화면을 다시 그린다. 
+
+   - 플러터 기본 프로젝트인 카운팅 앱에서 StatelessWidget으로 만들었을 때 
+
+     버튼을 눌렀을 때 실제 count 값은 바뀌지만 화면의 Text에는 반영되지 않는다. 
+
+     (StatefulWidget는 setState() 메소드가 없다면 StatelessWidget과 똑같이 변화를 반영하지 않는다.)
 
 1. Stateless Widget 
 
@@ -169,6 +190,8 @@
          1. Stateless처럼 Child 위젯등의 생성자를 통해 데이터가 전달될 때
          2. Internal state가 바뀔 때
 
+     -  그래서 대부분의 경우 StatefulWidget클래스는 State 클래스를 생성시키는 기능만 하는 것이 다인 경우가 많다. (createState()메소드를 통해)
+
      - 우리가 보게 되는 것은 Test클래스 객체인데 이 객체는 실은 변할 수 없는 객체이다. 
 
        => StatefulWidget은 Widget클래스를 상속하고 있다. 
@@ -180,8 +203,6 @@
        하지만 Stateful위젯은 State의 변화를 반영해야한다. 그렇기 때문에 두개의 클래스로 나누어서 Stateful위젯을 상속받은 클래스는 **immutable**한 특징을 유지하고
 
        그 아래에  State클래스를 상속받은 클래스는 **mutable**한 특징을 대신하게 한 것이다. 
-
-       그렇기에 StatefulWidget과 StatelessWidget에서는 모든 변수들은 immutable하게 선언해줘야한다. - final or const 
 
      - data에 변경사항이 생겨서 다시 위젯을 그리게 되면 우리에게 보여진 Test클래스의 객체는 사라지고 다시 _TestState클래스에서 변화가 반영된 data를 기반으로 위젯을 만들어서 Test에게 올려보내고 Test객체는 새로 받은 위젯을 우리에게 보여준다.
 
@@ -201,7 +222,7 @@
        @override
        State<StatefulWidget> createState(){
            return null;
-  }
+    }
        ```
 
        State 타입으로 지정되어 있고 제네릭타입으로 StatefulWidget이 지정되어있다.
@@ -238,3 +259,60 @@
          - 그래서 state가 변한 state 객체를 비용이 싼 stateful 위젯으로 만들어서 계속 rebuild함 
 
 > 위젯 트리 - Widget tree
+
+- 모든 것이 위젯으로 구성됨 
+- 그래서 위젯들을 나열해서 앱을 만들어가는 과정에서 하나의 계층구조를 가지게 된다.
+- 이것을 트리(tree) 구조로 표현할 수 있다. 
+- 안드로이드에서는 이러한 UI들의 계층구조를 XML파일에서 가질 수 있었다. 
+
+- 한 위젯내에 얼마든지 다른 위젯들이 포함될 수 있다. 
+
+  => 위젯은 부모(Parent)위젯과 자식(Child)위젯으로 구성됨 
+
+- 그래서 Parent 위젯을 위젯을 내포한다는 의미로 "Widget Container"라고도 한다. 
+
+```
+						MyApp
+						  |
+					  MaterialApp
+					      |
+					  MyHomePage
+					      |
+					-- Scaffold --
+					|            |
+				  AppBar        Center
+				    |             |
+				   Text 	  --Column--
+				   			 |    |    |
+				   		Image TextField Button
+```
+
+1. MyApp 
+
+   - 최상위 위치에는 MyApp()이 존재한다. 바로 앱의 root 위젯이자 앱의 시작점이다. 
+   - 꼭 이름이 MyApp일 필요는 없다. 
+   - 일종의 커스텀 위젯으로 이곳에서 Material App이라는 것이 빌드된다. 
+
+2. MaterialApp
+
+   - 위에서 이어서 말하면 트리상에서 두번째 위치에는 root 위젯에서 빌드된 MaterialApp이 있다.
+
+   - 실질적으로 MaterialApp위젯이 전체 앱을 감싸고 있는 위젯이다. 
+
+   - 이 MaterialApp위젯을 통해서 플러터 sdk에서 제공하는 위젯들 모든 것들을 사용할 수 있게된다.
+
+     
+
+   - MaterialApp은 안드로이드의 Material Design을 채택한 앱이다. 
+
+     이 MaterialApp을 만들기 위해서는 내용을 Scaffold로 감싸줘야한다. 
+
+3. MyHomePage
+
+   - 이것도 커스텀 위젯으로 꼭 이름이 MyHomePage일 필요는 없다.
+   - 여기서 본격적으로 앱의 디자인과 기능들이 만들어진다. 
+
+4. ★ Scaffold
+
+   - 가장 중요한 위젯으로 앱 화면과 기능을 구성하기 위한 빈 페이지를 준비해주는 위젯이다. 
+   - Scaffold 위젯 밑으로 본격적으로 UI와 관련해서 보여지는 모든 앱의 구성요소들(이미지, 버튼, 텍스트, Center, Column, Padding 등)이 사용된다. 
