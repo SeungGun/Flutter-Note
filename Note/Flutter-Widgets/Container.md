@@ -82,5 +82,21 @@
 
 10. decoration -> Decoration
 
-    - Container를 꾸미는 속성(Container의 모양)
+    - Container를 꾸미는 속성(Container의 모양등등)
+    
+    - 주로 BoxDecoration() 위젯과 맵핑해서 사용함 
+    
+      > BoxDecoration 속성
+    
+      1. border
+         - Container의 테두리 속성을 다룸(테두리 두께, 색, 스타일)
+         - Border() 위젯과 맵핑해서 사용 
+      2. borderRadius
+         - Container의 테두리를 곡선지게 만드는 속성
+         - BorderRadius() 위젯과 맵핑해서 사용
+      3. backgroundBlendMode
+      4. boxShadow
+      5. gradient
+      6. image
+      7. shape
 
