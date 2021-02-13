@@ -54,21 +54,28 @@
 
   dynamic도 var와 마찬가지로 타입을 추론을 하는 방식이다. 
 
+  한 타입에 대해서 할당하고 다른 타입으로도 재할당할 수 있는 타입이다.
+
+  ```dart
+dynamic a = 10;
+  a = 'HI'; 
+  ```
+  
   그러나 일반적으로 기본으로 사용할 때는 var를 사용하고, dynamic은 함수와 같이 사용한다.
-
+  
   (dynamic은 Java에서 Object 와 유사한 느낌
-
+  
   => 모든 클래스는 Object 클래스를 extends하므로 캐스팅이 가능함 DownCasting)
   
   ```dart
-  void main(){
+void main(){
       dynamic c = 10;
       myPrint(c);
       myPrint('Hello');
   }
   myPrint(dynamic v){
       //TODO
- }
+   }
   ```
   
 
