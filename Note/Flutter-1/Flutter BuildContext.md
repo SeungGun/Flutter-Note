@@ -114,7 +114,7 @@ class MyPage extends StatelessWidget{
   (MyPage 위젯은 MyApp에서 MaterialApp의 home 속성으로 가짐)
 
 ```dart
-					MyApp
+		      MyApp
                         |
                     MaterialApp
                         |
@@ -145,7 +145,7 @@ class MyPage extends StatelessWidget{
 - 핵심적인 역할은 지금까지 사용했던 context가 무엇이었든간에 다 무시하고 새로운 context로 새로운 위젯을 만들라는 것이다. 
 
 ```dart
-					MyApp
+		      MyApp
                         |
                     MaterialApp
                         |
@@ -221,7 +221,7 @@ class MyPage extends StatelessWidget {
 - Scaffold 위젯 밑에 새로운 커스텀 위젯을 생성하여 이 커스텀 위젯의 context를 사용하면 될 것이다. 
 
 ```dart
-					MyApp
+		      MyApp
                         |
                     MaterialApp
                         |
