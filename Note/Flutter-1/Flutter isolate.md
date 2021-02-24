@@ -64,5 +64,15 @@
 
 <h3>Isolate는 분리된 작업 단위로, 각각의 메모리를 가진다. </h3>
 
+- 그렇기에 Lock을 걸 수 없기에 경쟁 상태나 Deadlock이 발생하지 않는다. 
+
 - main isolate에서 실행해야할 작업이 오래걸리거나 많아서 프레임을 낮추는 경우에는 isolate를 생성하여 처리할 수 있다. 개별 isolate를 만들고 처리하기 때문에 main isolate에 부담을 주지 않으면서 다른 작업들을 처리할 수 있다.
 - main isolate에 부담을 주면 앱의 성능저하문제가 초래되기 때문
+
+<hr>
+
+<h3>Isolate 사용</h3>
+
+- 가장 기본이 되는 Isolate는 **main isolate**로 런타임시에 생성된다. 
+- **main isolate**는 필요에 따라 새로운 isolate를 만들어 쓰는데, isolate를 만드는 것을 스폰(spawn)이라고 한다. 
+
