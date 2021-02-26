@@ -206,7 +206,7 @@
 
        그런데 Widget클래스는 기본적으로 immutable하다. 즉, 한번 생성하면 State가 변하지 않는다는 것이다. 그렇기에 StatefulWidget을 상속받은 커스텀위젯클래스는 
 
-       Stateful위젯임과 동시에 Stateless위젯처럼 immutable한 위젯이다. 
+       <i>**Stateful위젯임과 동시에 Stateless위젯처럼 immutable한 위젯이다. **</i>
 
        하지만 Stateful위젯은 State의 변화를 반영해야한다. 그렇기 때문에 두개의 클래스로 나누어서 Stateful위젯을 상속받은 클래스는 **immutable**한 특징을 유지하고
 
@@ -260,10 +260,18 @@
 
          - setState가 표시해준 위젯들을 "dirty"라고 표현함
 
+           ```
+       setState() 안에 정의된 함수에 의해 값이 변경되는 변수 A, setState가 실행되면 
+           해당 build 메소드내에서 A가 사용되는 모든 곳을 dirty로 표시하고
+           setState()에 의해 build 메소드가 재실행되면 dirty로 표시된 곳만을 찾아서 UI를 업데이트함
+           ```
+         
            
-     
+         
          - 두개의 로봇이 있는데, 변신 로봇이 있는데 변신 과정에서 계속 state가 바뀌어야 하고 이를 반영하려면 보다 많은 부품과 비용이 들어간다.
+         
          - 플러터 입장에서 state 객체는 변신로봇에 해당된다.
+         
          - 그래서 state가 변한 state 객체를 비용이 싼 stateful 위젯으로 만들어서 계속 rebuild함 
 
 > 위젯 트리 - Widget tree
@@ -324,3 +332,26 @@
 
    - 가장 중요한 위젯으로 앱 화면과 기능을 구성하기 위한 빈 페이지를 준비해주는 위젯이다. 
    - Scaffold 위젯 밑으로 본격적으로 UI와 관련해서 보여지는 모든 앱의 구성요소들(이미지, 버튼, 텍스트, Center, Column, Padding 등)이 사용된다. 
+
+
+
+<hr>
+
+<h2>How flutter Renders Widgets </h2>
+
+- 위의 내용 다음과 연관
+
+```dart
+Widget tree <---- Element tree ----> Render tree
+MyApp Stateful <-- MyApp Stateful --> Render object
+    Widget             Element 
+                          |
+                       MyAppState
+    				   object
+```
+
+- MyAppState 객체는 위젯트리상의 MyApp Stateful 위젯과 간접적으로 연결되있다. 
+- MyAppState element는 위젯관련 중요 정보를 갖고있지만 이번에는 메모리 상에서 그 어디에도 종속되지 않은 독립된 객체로써 MyAppState 객체에 대한 정보도 가지게 된다. 
+- setState메소드가 호출되고 build메소드로 인해서 State 객체가 rebuild되면서 최종적으로 새로운 State를 반영한 새로운 MyApp Stateful 위젯이 rebuild된다.
+- MyApp Stateful element에 연결되있는 MyAppState 객체에 새로운 State가 저장이 되고 이제 MyAppState 객체는 새롭게 rebuild된 MyApp Stateful 위젯을 가리키게 된다.   
+
