@@ -9,12 +9,12 @@
 - Multi-child layout widget이다. 
 - Row와 Column 혹은 Container기반의 레이아웃의 갑갑함을 해결하고
 - 그리고 중복이 가능한 위젯을 지원한다.
-- 즉, 이름처럼 위젯위에 위젯을 쌓고, 쌓는 중첩된 레이아웃을 지원해주는 위젯이다. 
+- 즉, 이름처럼 위젯위에 위젯을 쌓고, 쌓는 중첩된 레이아웃(레이아웃끼리 겹칠 수 있는)을 지원해주는 위젯이다. 
 - 이는 간단하게 위젯들을 마음대로 결합하고 위치를 변경시킬 수 있는 편리한 위젯이다.
 - Stack 위젯의 children 속성을 통해 위젯들을 배치할 수 있다.
 - 그럴 때, children 속성의 리스트에서 위에 있는(앞에 있는) 위젯은 아래로 깔리게 되고 그 다음 순차적으로 그 위에 위젯들이 깔리는 형식이다. 
-- 위치 정렬을 설정해주지 않으면 각 하위 위젯요소들은 topStart로 default로 설정된다. 
-- **Positioned** 위젯과 같이 사용된다.
+- 위치 정렬을 설정해주지 않으면 각 하위 위젯요소들은 **topStart**로 default로 설정된다. 
+- 이를 위해 **Positioned** 위젯과 같이 사용된다.
 
 => 단순히 Stack만 사용하면 보기 안좋다. 그렇기에 Stack의 하위 위젯으로 존재하는 위젯들을 어떻게 배치하는가에 대한 위젯이다. 
 
@@ -72,17 +72,25 @@
 
      **Clip.hardEdge** : Overflow.clip과 같음 
 
+<hr>
+
 > Positioned 위젯
 
 - 사용방법은 Stack의 하위 위젯을 Positioned 위젯으로 감싸면 된다.
 - Stack 내에서 특정 하위 요소에 특정 위치를 지정할 수 있다.
+- width와 height 속성 빼고 나머지 속성들은 padding 효과를 지닌다 속성에 대한 방향으로부터 얼마나 떨어질지에 대한 값을 의미한다.
+- left, right, top, bottom 속성 값은 음수 값도 가능해서 반대 방향으로 떨어지게 만들 수도 있다. 
 
 1. left
 2. right
 3. top
 4. bottom
 5. height
+   - Positioned 위젯으로 감싼 하위 위젯의 세로(높이)길이 설정; **하위위젯의 크기가 설정되있다 하더라도 이 설정값으로 뭉갬**
 6. width
+   - Positioned 위젯으로 감싼 하위 위젯의 가로(너비)길이 설정; **하위위젯의 크기가 설정되있다 하더라도 이 설정값으로 뭉갬**
 7. child
+   - Container와 같이 위치, 크기 설정을 도와줄 하위 위젯
 
-+ Postioned.fill()를 이용해 Stack의 공간을 채울 수 있다. 
++ Postioned.fill()를 이용해 Stack의 공간만큼을 채울 수 있다.
++ 또한 이 Positioned.fill()의 속성값에는 left, right, top, bottom 속성이 존재하여 떨어지게 하는 효과도 줄 수 있다.  
