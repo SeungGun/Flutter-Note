@@ -94,3 +94,4 @@
 
 + Postioned.fill()를 이용해 Stack의 공간만큼을 채울 수 있다.
 + 또한 이 Positioned.fill()의 속성값에는 left, right, top, bottom 속성이 존재하여 떨어지게 하는 효과도 줄 수 있다.  
++ 이는 먼저 공간을 확 채운 뒤, 그 다음에 방향 속성에 대한 값을 적용한다. 
