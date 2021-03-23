@@ -12,9 +12,9 @@
 
 <blockquote>기본 자료형</blockquote>
 
-1. int  - 정수
+1. int  - 정수 ( 8byte)
 
-2. double -  실수
+2. double -  실수 (8byte)
 
 3. String - 문자열 => 문자열을 표현할 때 작은 따옴표(' ') 와 큰 따옴표(" ") 둘다 표현 가능
 
@@ -38,7 +38,7 @@
 
 - javascript에서의 var, C++에서의 auto와 동일한듯 하다.
 
-  => **var**  키워드를 사용한다. 
+  => **var**  키워드를 사용한다. **스스로 적절한 자료형을 찾아 사용함**
 
   ```dart
   void main(){
@@ -56,9 +56,11 @@
 
   한 타입에 대해서 할당하고 다른 타입으로도 재할당할 수 있는 타입이다.
 
+  => **자동으로 자료형에 따라 변경**
+
   ```dart
-dynamic a = 10;
-  a = 'HI'; 
+  dynamic a = 10; //int 형으로 변경
+  a = 'HI';  // String 형으로 변경 
   ```
   
   그러나 일반적으로 기본으로 사용할 때는 var를 사용하고, dynamic은 함수와 같이 사용한다.
@@ -66,9 +68,9 @@ dynamic a = 10;
   (dynamic은 Java에서 Object 와 유사한 느낌
   
   => 모든 클래스는 Object 클래스를 extends하므로 캐스팅이 가능함 DownCasting)
-  
+
   ```dart
-void main(){
+  void main(){
       dynamic c = 10;
       myPrint(c);
       myPrint('Hello');
@@ -162,6 +164,10 @@ void main(){
 6. <pre>~/</pre>
 
    나누기 - 결과값이 정수부분만 나옴(몫)
+   
+7. <pre> - </pre>
+
+   부호를 반전함(음수 <-> 양수)
 
 <blockquote>비교, 논리 연산자</blockquote>
 
@@ -541,6 +547,25 @@ child : Button(onPressed : something, ) //입력과 출력이 같은 메소드�
 
 <hr>
 
+<h2>for-in</h2>
+
+- 반복문의 일종으로 리스트와 같이 배열(sequence)로 된 데이터를 하나씩 꺼내며 반복한다.
+
+- 요소의 값은 루프를 한 바 퀴 도는 중에만 사용할 수 있다. 요소가 더 없으면 반복을 중단함.
+
+  **반복되는 요소는 var에 바인딩함**
+
+```dart
+var myList = ['a','b','c','d'];
+for(var i in myList){
+    print(i);
+}
+```
+
+
+
+<hr>
+
 <h2>Class</h2>
 
 - 기본적인 구조는  Java와 동일하다 .
@@ -578,9 +603,45 @@ child : Button(onPressed : something, ) //입력과 출력이 같은 메소드�
 
 > getter, setter
 
-* Generate 메뉴에서 Getter, Setter 만들 수 있음
+* 캡슐화를 위한 getter, setter
 
+1. get 
 
+   - getter는 **get** 키워드를 사용한다. 그리고 객체생성해서 이 getter에 접근시 변수처럼 가능함.
+
+   ```dart
+   void main(){
+       var a = Test();
+       print(a.getTest);
+   }
+   
+   class Test(){
+       int _privateVar = 1;
+       int get getVar{
+           return this._privatVar;
+       }
+   }
+   ```
+
+2. set
+
+   - setter는 **set** 키워드를 사용한다. getter와 마찬가지로 변수처럼 접근 가능.
+
+   ```dart
+   void main(){
+       var a = Test();
+       a.setTest = 5;
+   }
+   
+   class Test(){
+       int _privateVar = 1;
+       set setVar(int val){
+           this._privateVar = val;
+       }
+   }
+   ```
+
+   
 
 > cascade
 
