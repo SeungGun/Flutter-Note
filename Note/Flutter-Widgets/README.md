@@ -15,3 +15,4 @@
 7. SingleChildScrollView
 8. WillPopScope
 9. FocusScope
+10. MediaQuery
