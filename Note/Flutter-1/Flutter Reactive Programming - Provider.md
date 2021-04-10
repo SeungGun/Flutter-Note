@@ -120,8 +120,9 @@ Consumer<Counter>(
 ```
 
 - builder 속성으로 context와 value와 child를 가져옴
-
 - 여기서 이 **value**가 바로 이 제공된 데이터이다. (타입은 물론 그 데이터의 타입, 선언했던 타입 T와 같은 것)
+- 정확하게 말하면 value는 그 클래스 타입의 **object**인 것이다. 
+- 그래서 그 object로 값을 변경한다던지, 값을 가져온다던지 핸들할 수 있다. 
 
 ```dart
 Consumer<Counter>(builder: (context, value, child){
