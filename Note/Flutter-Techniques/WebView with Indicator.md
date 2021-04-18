@@ -15,7 +15,7 @@ Widget getWebView(String url){
     	children : [
             WebView(
             	initialUrl : url,
-            	onPageStarted : (start){ // 시작될 때 다시 state를 바꾸는 이유는 다시 이 WebView를 보여줄 때는 상태가 이미 변한 상태여서 일회성이 되버린다.
+            	onPageStarted : (start){ // 시작될 때 다시 state를 바꾸는 이유는 다시 이 WebView를 보여줄 때는 상태가 이미 변한 상태여서 일회성이 되버린다. 그렇기 때문에, 웹 데이터를 가져오기 시작할 때 데이터를 가져온다는 즉, 로딩을 하고 있다라는 의미로 bool 값을 true로 설정해준다.
                     setState((){
                         web_loading = true;
                     });
