@@ -357,6 +357,15 @@ void main(){
 
 > Spread operation
 
+- ... (점 3개)로 사용이 된다.
+- List를 Unpack해서 다른 List에 추가할 때 사용이 된다. 
+
+```dart
+var list1 = [1,2,3,4,5];
+
+var list2 = [6,7,8,9,...list1,];
+```
+
 
 
 <hr>
@@ -489,10 +498,11 @@ child : Button(onPressed : something, ) //입력과 출력이 같은 메소드�
       return _name;
   }
   // 람다식으로 변경
-  String get name => _name; 
+  String get name => _name; // _name 변수를 리턴
   ```
 
-  
+  - => 다음에 변수명이 오면 그 변수를 리턴한다는 의미이다. 
+  - 단순히 문장이 있다면 그 문장을 실행하겠다는 의미로 쓰인다. 
 
 <hr>
 
@@ -653,6 +663,8 @@ for(var i in myList){
 
   객체 생성하고 값 초기화할 때 사용?
 
+  - 개체의 참조를 가져와서 하나씩 변경하는 것이 아니라 단계별로 변경하는 방법
+  
   ```dart
   var person = Person();
   person.setName('홍길동');
