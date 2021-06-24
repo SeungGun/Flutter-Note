@@ -352,8 +352,18 @@ void main(){
            'key2': 2,
            'key3': 3,
        };
+       //Map<T,S>
    }
    ```
+   
+   - Map의 경우 Map의 value에 접근하기 위해서는 Map 오브젝트로 배열 인덱스에 접근하는식으로 인덱스를 key 값으로 작성하면 된다. 
+   
+   ```dart
+   print(itemMap['key1']);
+   // result : 1
+   ```
+   
+   
 
 > Spread operation
 
@@ -770,7 +780,8 @@ Future networkRequest() async{ //나중에 비동기로 끝나는
 // 요청 끝
 ```
 
-
+- aync가 붙은 그 함수내부는 비동기적으로 진행된다. 
+- 그리고 그 중에서 그 사이에 await라는 키워드가 붙은 작업이 있으면 async가 붙은 함수 블럭"내에서"는 await가 붙은 작업이 끝날때까지 다음 코드를 실행하지 않는다. (async 함수 블럭 밖은 비동기적으로 동작하는 동시에) 
 
 <hr>
 
