@@ -363,6 +363,22 @@ void main(){
    // result : 1
    ```
    
+   - Convert String to Map
+   
+   ```dart
+   String stringData = '{"name" : {"first" : "foo", "last" : "bar"}, "age" : 31}'
+   Map converted = json.decode(stringData);
+   ```
+   
+   - Convert Map to String
+   
+   ```dart
+   Map<String, dynamic> mapData = {
+       "name" : {"first" : "foo", "last" : "bar"}, "age" : 31
+   };
+   String converted = json.encode(mapData);
+   ```
+   
    
 
 > Spread operation
@@ -748,13 +764,46 @@ for(var i in myList){
   }
   ```
 
+> factory
 
+- 새로운 인스턴스를 생성하지 않는 생성자를 구현할 때 factory 키워드를 사용하라고 한다.
+- 즉, 새로운 인스턴스를 생성하고 싶지 않을 때 사용하는 생성자이다. 
+- 이는 Design Pattern중 하나인 싱글톤 패턴(Singleton-Pattern)을 따른 것이다.
+  - 싱글톤 패턴 : 싱글톤 패턴을 따르는 클래스는 생성자가 여러 차례 호출되더라도 실제로 생성되는 객체는 하나이고, 최초 생성 이후에 호출된 생성자는 최초의 생성자가 생성한 객체를 리턴한다. 
+
+- 매번 인스턴스를 새로 생성하여 비용이 많이 드는 Constructor와 다른 특징을 가진다.
+  1. 기존에 이미 생성된 인스턴스가 있다면 return하여 재사용함.
+  2. 하나의 클래스에서 하나의 인스턴스만 생성함.
+  3. Sub class의 인스턴스를 return할 때 사용할 수 있다.
+  4. Factory constructor에서는 this로 접근할 수 없다.
+
+```dart
+class Logger{
+    final String name;
+    bool mute = false;
+    
+    static final Map<String, Logger> _cache = <String, Logger>{};
+    
+    factory Logger(String name){
+        return _cache.putIfAbsent(
+        	name, () => Logger._internal(name)
+        );
+    }
+    factory Logger.fromJson(Map<String, Object> json){
+        return Logger(json['name'].toString());
+    }
+    Logger._internal(this.name);
+    
+}
+```
+
+https://another-light.tistory.com/77
 
 <hr>
 
 <h2>Future, async, await</h2>
 
-- 버튼 클릭을 했는데 네트워크 요청을 해야한다. 이는 비동기로 실행이 되어야한다. 
+-  버튼 클릭을 했는데 네트워크 요청을 해야한다. 이는 비동기로 실행이 되어야한다. 
 - 그러한 메소드들을 Future형태이다. (언제 끝나는지 모름)
 
 **Future 타입으로 리턴받는 형태**
