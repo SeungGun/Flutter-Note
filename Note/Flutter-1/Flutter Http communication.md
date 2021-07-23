@@ -72,6 +72,10 @@ https://meetup.toast.com/posts/92
 
 <h2> Flutter에서의 사용</h2>
 
+- http plugin 필요 
+- android의 경우 manifest에 설정 필요 
+- ios도 추가 설정 필요
+
 - Back-end는 php 사용
 
 > 데이터 전송하기 POST
@@ -164,6 +168,7 @@ echo mysql_error();
   2. statusCode - http 요청 코드
   3. headers - 헤더 정보
   4. contentLength - 내용 길이
+     - 시행 착오 : 왜 respone.body에 헤더 정보까지 왜 같이 딸려오는가..
 
 <hr>
 
