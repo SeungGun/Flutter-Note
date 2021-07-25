@@ -73,7 +73,23 @@ https://meetup.toast.com/posts/92
 <h2> Flutter에서의 사용</h2>
 
 - http plugin 필요 
-- android의 경우 manifest에 설정 필요 
+
+- android의 경우 manifest에 두가지 설정 필요 
+
+  - android / app / src / main / AndroidManifest.xml
+
+    ```xml
+    <application
+                 ...
+                 android:usesCleartextTraffic="true"
+    ```
+
+    ```xml
+    <uses-permission android:name="andrid.permission.INTERNET"/>
+    ```
+
+    
+
 - ios도 추가 설정 필요
 
 - Back-end는 php 사용
@@ -162,6 +178,119 @@ echo mysql_error();
 ```
 
 
+
+> 이미지 파일 전송하기 (or Binary files)
+
+- multipart/form-data에 대한 작업
+
+- MultipartRequest 이용
+
+  ```dart
+  import 'package:http/http.dart' as http;
+  ...
+  var request = http.MultipartRequest('POST',Uri.parse('uri'));
+  ```
+
+  - 이 요청은 Content-Type 헤더를 "**multipart/form-data**"로 자동으로 설정함
+  - 이 요청은 문자열과 같은 일반적인 필드가 포함된다.
+  - 동시에, Potentially streamed 이진 파일(Binary files)를 포함한다. 
+
+- 리턴 받은 MultipartRequest 타입의 request 객체의 fields 멤버로 일반적인 문자열 필드를 전송할 수 있다.
+
+  - fields는 Map<String,String> 타입
+
+  ```dart
+  request.fields['name'] = 'test_name';
+  request.fields['price'] = '1,000';
+  ```
+
+- 이미지 파일 포함시키기
+
+  ```dart
+  var picture = await http.MultipartFile.fromPath("field", imageFile.path, filename : 'imageTest.jpg');
+  
+  // 1st param : 필드라고 하는데 정체를 모르겠음
+  // 2nd param : 이미지 파일의 경로에 대한 문자열(File or XFile 객체의 path 멤버)
+  // 3rd param :  이미지 파일의 이름을 변경하고 싶을 때는 filename 속성에 입력
+  
+  ```
+
+  - request 객체의 멤버인 files(이 요청에 대해 업로드할 파일 리스트) -> List&lt;MultipartFile&gt;
+  - 의 add 메소드를 통해 위의 MultipartFile 객체, 즉, 이미지 파일을 추가한다. 
+
+  ```dart
+  request.files.add(picture);
+  ```
+
+- 요청을 서버로 전송 - send() 메소드 이용
+
+  ```dart
+  var response = await request.send();
+  // response 타입은 StreamedResponse
+  ```
+
+- 요청에 대한 응답 데이터 받기
+
+  ```dart
+  var responseData = await response.stream.toBytes();
+  var responseString = String.fromCharCodes(responseData);
+  print(responseString);
+  ```
+
+- 전체 code
+
+  ```dart
+  uploadImage(imageFile) async{
+      var request = http.MultipartRequest('POST',Uri.parse('uri'));
+      request.fields['name'] = 'test_name';
+      request.fields['price'] = '1,000';
+      
+      var picture = await.http.MultipartFile.fromPath('field', imageFile.path, filename : 'imageTest.jpg');
+      var response = await request.send();
+      
+      if(response.statusCode == 200){
+          var responseData = await response.stream.toBytes();
+          var responseString = String.fromCharCodes(responseData);
+          print(responseString);
+      }
+  }
+  ```
+
+- Server - save_image.php
+
+  ```php
+  <?php
+  $name = $_POST['name']; // request.fields['name'] 
+  $price = $_POST['price']; // request.fields['price'] 를 통해 전송한 필드 값
+  // 즉, $name은 test_name이고, $price는 1,000의 값을 가진다. 
+  
+  $image_name = $_FILES['userfile']['name'];
+  // 이미지 파일의 이름; $image_name : imageTest.jpg
+  $target = '/host/a/b/c'.$img_name;
+  // 서버에 저장할 이미지 파일의 경로를 설정
+  $image_type = $_FILES['userfile']['type'];
+  // 파일의 mime 형식? : application/octet-stream 
+  $image_size = $_FILES['userfile']['size'];
+  // 이미지 파일의 크기를 바이트로 표현한 크기 : 3057482
+  $temp = $_FILES['userfile']['tmp_name'];
+  // 서버에 저장될 때 임시 파일에 저장되므로 그 임시 파일 경로 및 이름
+  // /tmp/php5qWa1Y
+  $error =$_FILES['userfile']['error'];
+  // 파일 업로드에 관련한 에러 코드
+  
+  move_uploaded_file($temp, $target);
+  // 임시 파일을 저장할 경로에 이미지 파일을 저장(이동)하는 함수 
+  
+  $delete = unlink($temp); // 임시 파일 제거(?)
+      
+  /* 
+  $_FILES의 첫번째 [ ]에 들어가는 값은 파일 업로드 이름(?)인데
+  어떠한 이름이라도 가질 수가 있다고 한다.
+  */
+  ?>
+  ```
+
+  
 
 - Response 객체 멤버
   1. body - 요청의 결과 값이 들어가 있음 검색결과, 데이터 전송 성공 여부, 추가로 화면에 뿌려지는 것들
