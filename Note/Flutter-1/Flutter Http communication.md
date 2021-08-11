@@ -245,7 +245,9 @@ echo mysql_error();
       request.fields['name'] = 'test_name';
       request.fields['price'] = '1,000';
       
-      var picture = await.http.MultipartFile.fromPath('field', imageFile.path, filename : 'imageTest.jpg');
+      var picture = await http.MultipartFile.fromPath('field', imageFile.path, filename : 'imageTest.jpg');
+      request.files.add(picture);
+      
       var response = await request.send();
       
       if(response.statusCode == 200){
