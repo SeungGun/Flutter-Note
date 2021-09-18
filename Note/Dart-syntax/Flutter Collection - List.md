@@ -25,11 +25,22 @@ void main(){
 
 - 위에는 List를 만드는 기본적인 구조이다. 
 - List 클래스 생성자에 숫자값을 넣어주면 Fixed-length list가 되고 그렇지 않고 비워두면 Growable list가 된다. 
-
 - 위에서 두번째처럼 선언하면 타입은 "List&lt;dynamic&gt;"이 된다. 
 - dynamic은 어떤 변수가 여러 타입으로 지정될 수 있어야할 때 사용한다.
 - 현재 저 위의 List는 어떤 타입의 데이터들이 들어가야할지는 지정을 하지 않았다.
 - 그래서 이 경우에 dynamic은 List안에 다양한 타입의 데이터들이 마음대로 들어올 수 있다는 의미이다. 
+
+※ new List()로 초기화 하는 작업은 deprecated됨 - 2021/09/18 수정
+
+```dart
+void main(){
+    var number = [];
+    
+    List number2 = [];
+}
+```
+
+
 
 <h3>데이터 추가</h3>
 
